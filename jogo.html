@@ -2,105 +2,147 @@
 
 <html>
 <head>
-<title>Jogo da Velha</title>
-<style type="text/css">
-<!--
-.bla {
-    width: 100px;
-    height: 100px;
-    background: #99ccff;
-    font-size: 80px;
-    color: #ff0000;
-    cursor: pointer;
-}
-
-.ble {
-    background: #000066;
-}
--->
-</style>
-<script language="JavaScript" type="text/javascript">
-<!--
-letra = "X";
-
-function joga(celula){
-    celulaclicada = document.getElementById(celula).innerHTML;
-   if (celulaclicada == "X" || celulaclicada == "O"){
-       alert("Opa, este quadrado já foi escolhido!");
-   }else{
-        document.getElementById(celula).innerHTML = letra;
-        if (letra == "X"){
-            letra = "O";
-        }else{
-            letra = "X";
+    <title>Jogo da Velha</title>
+    <style type="text/css">
+        <!--
+        .colorirQuadrado {
+            width: 100px;
+            height: 100px;
+            background: #99ccff;
+            font-size: 80px;
+            color: #ff0000;
+            cursor: pointer;
         }
-   }
-}
 
-function verif(){
-   c11 = document.getElementById('cel11').innerHTML;
-   c12 = document.getElementById('cel12').innerHTML;
-   c13 = document.getElementById('cel13').innerHTML;
-   c21 = document.getElementById('cel21').innerHTML;
-   c22 = document.getElementById('cel22').innerHTML;
-   c23 = document.getElementById('cel23').innerHTML;
-   c31 = document.getElementById('cel31').innerHTML;
-   c32 = document.getElementById('cel32').innerHTML;
-   c33 = document.getElementById('cel33').innerHTML;
-   if (   ((c11 != '') && (c12 != '') && (c13 != '') && (c11 == c12) && (c12 == c13))
-       || ((c11 != '') && (c22 != '') && (c33 != '') && (c11 == c22) && (c22 == c33))
-       || ((c11 != '') && (c21 != '') && (c31 != '') && (c11 == c21) && (c21 == c31))
-       || ((c21 != '') && (c22 != '') && (c23 != '') && (c21 == c22) && (c22 == c23))
-       || ((c31 != '') && (c32 != '') && (c33 != '') && (c31 == c32) && (c32 == c33))
-       || ((c12 != '') && (c22 != '') && (c32 != '') && (c12 == c22) && (c22 == c32))
-       || ((c13 != '') && (c23 != '') && (c33 != '') && (c13 == c23) && (c23 == c33))
-       || ((c31 != '') && (c22 != '') && (c13 != '') && (c31 == c22) && (c22 == c13))){
-       alert('Você ganhou! Parabéns campeão!');
-      novo();
-   }
-}
+        .colorirTabuleiro {
+            background: #000066;
+        }
+        -->
+    </style>
+    <script language="JavaScript" type="text/javascript">
+        <!--
+        letra = "X";
 
-function novo(){
-    for (i=1; i<4; i++){
-       for (j=1; j<4; j++){
-          nomecelula = 'cel' + i + j
-           document.getElementById(nomecelula).innerHTML = '';
-      
-      }
-   }
-}
+        /**
+         * Aqui você marca o quadrado
+         * 
+         * @param celula
+         */
+        function jogar(celula){
+            celulaclicada = document.getElementById(celula).innerHTML;
+            if (celulaclicada == "X" || celulaclicada == "O"){
+                alert("Opa, este quadrado já foi escolhido!");
+            }else{
+                document.getElementById(celula).innerHTML = letra;
+                if (letra == "X"){
+                    letra = "O";
+                }else{
+                    letra = "X";
+                }
+            }
+        }
+
+        /**
+         * Verifica se o jogador que terminou de marcar no tabuleiro venceu o jogo
+         */
+        function verificarSeGanhou() {
+            /**
+             * pega o conteúdo de cada quadrado do tabuleiro
+             */
+            quadrado1_Linha1 = document.getElementById('cel11').innerHTML;
+            quadrado1_Linha2 = document.getElementById('cel12').innerHTML;
+            quadrado1_Linha3 = document.getElementById('cel13').innerHTML;
+            quadrado2_Linha1 = document.getElementById('cel21').innerHTML;
+            quadrado2_Linha2 = document.getElementById('cel22').innerHTML;
+            quadrado2_Linha3 = document.getElementById('cel23').innerHTML;
+            quadrado3_Linha1 = document.getElementById('cel31').innerHTML;
+            quadrado3_Linha2 = document.getElementById('cel32').innerHTML;
+            quadrado3_Linha3 = document.getElementById('cel33').innerHTML;
+            
+            if (   ((quadrado1_Linha1 != '') && (quadrado1_Linha2 != '') && (quadrado1_Linha3 != '') && (quadrado1_Linha1 == quadrado1_Linha2) && (quadrado1_Linha2 == quadrado1_Linha3))     /* verifica se venceu na COLUNA 1 */
+                || ((quadrado1_Linha1 != '') && (quadrado2_Linha2 != '') && (quadrado3_Linha3 != '') && (quadrado1_Linha1 == quadrado2_Linha2) && (quadrado2_Linha2 == quadrado3_Linha3))     /* verifica se venceu na DIAGONAL 1 */
+                || ((quadrado1_Linha1 != '') && (quadrado2_Linha1 != '') && (quadrado3_Linha1 != '') && (quadrado1_Linha1 == quadrado2_Linha1) && (quadrado2_Linha1 == quadrado3_Linha1))     /* verifica se venceu na LINHA 1 */
+
+                    
+                || ((quadrado2_Linha1 != '') && (quadrado2_Linha2 != '') && (quadrado2_Linha3 != '') && (quadrado2_Linha1 == quadrado2_Linha2) && (quadrado2_Linha2 == quadrado2_Linha3))    /* verifica se venceu na COLUNA 2 */
+                || ((quadrado3_Linha1 != '') && (quadrado3_Linha2 != '') && (quadrado3_Linha3 != '') && (quadrado3_Linha1 == quadrado3_Linha2) && (quadrado3_Linha2 == quadrado3_Linha3))    /* verifica se venceu na COLUNA 3 */
+                || ((quadrado1_Linha2 != '') && (quadrado2_Linha2 != '') && (quadrado3_Linha2 != '') && (quadrado1_Linha2 == quadrado2_Linha2) && (quadrado2_Linha2 == quadrado3_Linha2))     /* verifica se venceu na LINHA 2 */
 
 
-//-->
-</script>
+                || ((quadrado1_Linha3 != '') && (quadrado2_Linha3 != '') && (quadrado3_Linha3 != '') && (quadrado1_Linha3 == quadrado2_Linha3) && (quadrado2_Linha3 == quadrado3_Linha3))
+                || ((quadrado3_Linha1 != '') && (quadrado2_Linha2 != '') && (quadrado1_Linha3 != '') && (quadrado3_Linha1 == quadrado2_Linha2) && (quadrado2_Linha2 == quadrado1_Linha3))){
+                alert('Você ganhou! Parabéns campeão!');
+                novoJogo();
+            }
+        }
+
+        function novoJogo(){
+            for (i=1; i<4; i++){
+                for (j=1; j<4; j++){
+                    nomecelula = 'cel' + i + j;
+                    /**
+                     * limpa todos os quadrados do tabuleiro
+                     */
+                    document.getElementById(nomecelula).innerHTML = '';
+
+                }
+            }
+        }
+
+
+        //-->
+    </script>
 
 </head>
 <body>
-<table class="ble">
+    
+    <!-- TABULEIRO -->
+    <table class="colorirTabuleiro">
+        <!-- LINHA 1 -->
+        <tr>
+            <!-- COLUNA 1-->
+            <td align="center" valign="middle" id="cel11" class="colorirQuadrado" onclick="jogar(this.id);verificarSeGanhou();"></td>
 
-    <tr>
-        <td align="center" valign="middle" id="cel11" class="bla" onclick="joga(this.id);verif();"></td>
-        <td align="center" valign="middle" id="cel12" class="bla" onclick="joga(this.id);verif();"></td>
-        <td align="center" valign="middle" id="cel13" class="bla" onclick="joga(this.id);verif();"></td>
-    </tr>
+            <!-- COLUNA 2-->
+            <td align="center" valign="middle" id="cel12" class="colorirQuadrado" onclick="jogar(this.id);verificarSeGanhou();"></td>
 
-    <tr>
-        <td align="center" valign="middle" id="cel21" class="bla" onclick="joga(this.id);verif();"></td>
-        <td align="center" valign="middle" id="cel22" class="bla" onclick="joga(this.id);verif();"></td>
-        <td align="center" valign="middle" id="cel23" class="bla" onclick="joga(this.id);verif();"></td>
-    </tr>
-
-    <tr>
-        <td align="center" valign="middle" id="cel31" class="bla" onclick="joga(this.id);verif();"></td>
-        <td align="center" valign="middle" id="cel32" class="bla" onclick="joga(this.id);verif();"></td>
-        <td align="center" valign="middle" id="cel33" class="bla" onclick="joga(this.id);verif();"></td>
-    </tr>
-
-</table>
+            <!-- COLUNA 3-->
+            <td align="center" valign="middle" id="cel13" class="colorirQuadrado" onclick="jogar(this.id);verificarSeGanhou();"></td>
+        </tr>
 
 
 
-<br><input type="button" name="limpar" value="Novo jogo" onclick="novo();" />
+        <!-- LINHA 2 -->
+        <tr>
+            <!-- COLUNA 1-->
+            <td align="center" valign="middle" id="cel21" class="colorirQuadrado" onclick="jogar(this.id);verificarSeGanhou();"></td>
+
+            <!-- COLUNA 2-->
+            <td align="center" valign="middle" id="cel22" class="colorirQuadrado" onclick="jogar(this.id);verificarSeGanhou();"></td>
+
+            <!-- COLUNA 3-->
+            <td align="center" valign="middle" id="cel23" class="colorirQuadrado" onclick="jogar(this.id);verificarSeGanhou();"></td>
+        </tr>
+
+
+
+        <!-- LINHA 3 -->
+        <tr>
+            <!-- COLUNA 1-->
+            <td align="center" valign="middle" id="cel31" class="colorirQuadrado" onclick="jogar(this.id);verificarSeGanhou();"></td>
+
+            <!-- COLUNA 2-->
+            <td align="center" valign="middle" id="cel32" class="colorirQuadrado" onclick="jogar(this.id);verificarSeGanhou();"></td>
+
+            <!-- COLUNA 3-->
+            <td align="center" valign="middle" id="cel33" class="colorirQuadrado" onclick="jogar(this.id);verificarSeGanhou();"></td>
+        </tr>
+
+    </table>
+
+
+
+    <br><input type="button" name="limpar" value="Novo jogo" onclick="novoJogo();" />
 </body>
 </html>
 
